@@ -47,8 +47,38 @@ public class RecursionLab {
 	 *                                  '1'
 	 */
 	public static int binToDec(String binNumber) throws IllegalArgumentException {
-		//TODO delete the return statement below and implement this method
-		return -1;
+		// Now check the rightmost bit of the string
+		int length = binNumber.length();
+		char lastBit = binNumber.charAt(binNumber.length()-1);
+		
+		// Check to ensure binNumber is 31 bits or shorter
+		if (length >= 32)
+			throw new IllegalArgumentException("binary string provided cannot be more than 32 bits");
+		
+		// If binNumber has a length of 0
+		if (length == 0 || binNumber.isBlank() || binNumber.isEmpty() || binNumber == null) 
+			throw new IllegalArgumentException("Binary string cannot be empty");
+		
+		// If binNumber has a length of 1
+		if (length == 1) {
+			if (lastBit == '0')
+				return 0;
+			if (lastBit == '1')
+				return 1;
+		}
+		
+		// If length > 1 ...
+		// If lastBit is 0, return 2 * num
+		if (lastBit == '0')
+			return 2 * binToDec(binNumber.substring(0, length-1));
+		
+		// If lastBit is 1, return 2 * num + 1
+		if (lastBit == '1')
+			return 2 * binToDec(binNumber.substring(0, length-1)) + 1;
+		
+		// If the lastBit is anything else, then the string does NOT contain
+		// strictly 1s and 0s and so throws an exception
+		throw new IllegalArgumentException("binary string provided must only be composed of 1s and 0s");
 	}
 
 
