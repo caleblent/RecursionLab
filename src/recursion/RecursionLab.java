@@ -19,9 +19,21 @@ public class RecursionLab {
 	 * @return The number of ways to choose k items from a set of N items
 	 * @throws IllegalArgumentException if k > N or k is negative
 	 */
-	public static long rec_C(int N, int k) {
-		//TODO delete the return statement below and implement this method
-		return -1;
+	public static long rec_C(int N, int k) throws IllegalArgumentException {
+		// 1. Check to see if k is less than N or negative
+		if (k > N)
+			throw new IllegalArgumentException("k cannot be greater than N");
+		if (k < 0)
+			throw new IllegalArgumentException("k cannot be negative");
+		
+		// 2. Check base case scenario (either N == k OR k == 0)
+		if (k == 0)
+			return 1;
+		if (k == N)
+			return 1;
+		
+		// 3. Then (N, k) = (N - 1, k) + (N - 1, k - 1)
+		return rec_C(N-1,k) + rec_C(N-1, k-1);
 	}
 
 	/**
